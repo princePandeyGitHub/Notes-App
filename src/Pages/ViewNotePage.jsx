@@ -23,7 +23,11 @@ export function ViewNotePage({ notes,deleteNote }) {
             </div>
 
             <div className="note-buttons">
-                <button className="edit-btn">Edit Note</button>
+                <button className="edit-btn"
+                onClick={()=>{
+                    navigate(`/edit-notes/${note.id}`)
+                }}
+                >Edit Note</button>
                 <button className="delete-btn" onClick={() => 
                 {
                     deleteNote(note.id) 

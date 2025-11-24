@@ -5,7 +5,7 @@ import { Navbar } from './Components/Navbar.jsx'
 import { ViewNotePage } from './Pages/ViewNotePage.jsx'
 import { EditNotePage } from './Pages/EditNotePage.jsx'
 import { AddNotePage } from './Pages/AddNotePage.jsx'
-import { Route,Routes } from 'react-router'
+import { Route, Routes } from 'react-router'
 
 export default function App() {
   const [notes, setNotes] = useState([
@@ -70,21 +70,21 @@ export default function App() {
       "createdAt": "2025-04-03T21:14:02Z"
     }])
 
-const deleteNote = (id) => {
-  const updatedNotes = notes.filter(note => note.id !== id);
-  setNotes(updatedNotes);
-};
+  const deleteNote = (id) => {
+    const updatedNotes = notes.filter(note => note.id !== id);
+    setNotes(updatedNotes);
+  };
 
   return (
     <>
-    <Navbar />
-    <Routes>
-      <Route path='/' element = {<HomePage notes={notes} deleteNote={deleteNote}/>}/>
-      <Route path='view-notes/:id' element = {<ViewNotePage notes={notes} deleteNote={deleteNote}/>}/>
-      <Route path='edit-notes/:id' element = {<EditNotePage notes={notes} deleteNote={deleteNote}/>}/>
-      <Route path='add-notes' element = {<AddNotePage/>}/>
-    </Routes>
-    
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<HomePage notes={notes} deleteNote={deleteNote} />} />
+        <Route path='view-notes/:id' element={<ViewNotePage notes={notes} deleteNote={deleteNote} />} />
+        <Route path='edit-notes/:id' element={<EditNotePage notes={notes} setNotes={setNotes} deleteNote={deleteNote} />} />
+        <Route path='add-notes' element={<AddNotePage notes={notes} setNotes={setNotes} />} />
+      </Routes>
+
     </>
   )
 }
