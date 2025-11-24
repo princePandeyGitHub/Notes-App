@@ -20,7 +20,7 @@ export function AddNotePage({notes,setNotes}) {
         }
         setNotes([...notes, newNote])
         navigate(`/view-notes/${id}`)
-    }
+        }
     return (
         <div className="note-container">
             <input type="text" className='note-title' placeholder='Title of your Note' required
