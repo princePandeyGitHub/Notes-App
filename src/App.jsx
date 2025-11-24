@@ -8,6 +8,7 @@ import { AddNotePage } from './Pages/AddNotePage.jsx'
 import { Route, Routes } from 'react-router'
 
 export default function App() {
+  const [searchQuery, setSearchQuery] = useState("");
   const [notes, setNotes] = useState([
     {
       "id": 1,
@@ -75,11 +76,20 @@ export default function App() {
     setNotes(updatedNotes);
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const filteredNotes = notes.filter(note =>
+    note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    note.text.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <>
-      <Navbar />
+      <Navbar onSearch={handleSearch}/>
       <Routes>
-        <Route path='/' element={<HomePage notes={notes} deleteNote={deleteNote} />} />
+        <Route path='/' element={<HomePage notes={filteredNotes} deleteNote={deleteNote} />} />
         <Route path='view-notes/:id' element={<ViewNotePage notes={notes} deleteNote={deleteNote} />} />
         <Route path='edit-notes/:id' element={<EditNotePage notes={notes} setNotes={setNotes} deleteNote={deleteNote} />} />
         <Route path='add-notes' element={<AddNotePage notes={notes} setNotes={setNotes} />} />
