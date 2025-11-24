@@ -9,8 +9,9 @@ export function Navbar({ onSearch }) {
         <nav className="navbar">
             <Link to={'/'} style={{
                 textDecoration: 'none'
-            }}>
+            }} className='logo'>
                 <div className="brand">NOTES APP</div>
+                <img src="/icon.png" alt="image" width={'20px'} style={{marginLeft: '3px'}}/>
             </Link>
 
             <div className="search-container">

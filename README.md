@@ -1,16 +1,106 @@
-# React + Vite
+📝 Notes App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fast, lightweight, and fully client-side React Notes App that allows users to create, edit, search, view, and delete notes — all stored securely in LocalStorage.
+Designed with a clean UI and instant search functionality.
 
-Currently, two official plugins are available:
+🚀 Features
+✔ Create Notes
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Add a new note with a title and content.
+Each note is timestamped using dayjs.
 
-## React Compiler
+✔ Edit Notes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Modify any existing note and save changes instantly.
 
-## Expanding the ESLint configuration
+✔ Delete Notes
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Remove notes permanently with a single click.
+
+✔ Live Search
+
+Search through notes by title or content in real time.
+
+✔ LocalStorage Sync
+
+Notes are automatically saved in the browser using LocalStorage.
+Even after a page refresh or browser restart, your notes stay intact.
+
+✔ Individual Note View
+
+Click any note to view it in a separate page.
+
+✔ Clean Navigation
+
+Includes a responsive navigation bar with integrated search.
+
+📂 Project Structure
+src/
+│
+├── Components/
+│   └── Navbar.jsx
+│
+├── Pages/
+│   ├── HomePage.jsx
+│   ├── ViewNotePage.jsx
+│   ├── AddNotePage.jsx
+│   └── EditNotePage.jsx
+│
+├── App.jsx
+├── index.css
+└── main.jsx
+
+🛠 Tech Stack
+
+React
+
+React Router
+
+Day.js for timestamps
+
+LocalStorage for persistence
+
+CSS for styling
+
+📦 Installation & Setup
+1️⃣ Clone the repository
+git clone https://github.com/your-username/notes-app.git
+
+2️⃣ Install dependencies
+npm install
+
+3️⃣ Run the app
+npm run dev
+
+
+Open your browser and go to:
+
+http://notes-app-link.com
+
+🖼 Screenshots
+
+![Add-Notes](Screenshots/Add.png)
+![Edit-Notes](Screenshots/Edit.png)
+![Home-Page](Screenshots/Home.png)
+![View-Notes](Screenshots/View.png)
+
+🧩 Future Improvements
+
+🔖 Pin notes
+
+🌙 Dark mode
+
+🔄 Sync across devices
+
+📌 Categories / tags
+
+🧠 AI summaries 
+
+🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+Open a pull request or start a discussion anytime.
+
+📜 License
+
+This project is licensed under the MIT License — free to use, modify, and distribute.

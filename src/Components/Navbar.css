@@ -12,7 +12,9 @@
     border-radius: 20px;
 }
 
-
+.logo {
+    display: flex;
+}
 .brand {
     font-size: 1.4rem;
     font-weight: bold;
