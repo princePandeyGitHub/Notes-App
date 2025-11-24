@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+body {
+    background: #f4f4f4;
+    padding: 20px;
+}
+
+.notes-container {
+    margin-top: 20px;
+    padding: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.note-card {
+    margin: 10px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+@media (max-width: 800px) {
+    .note-card {
+        flex-direction: column;
+    }
+}
+
+
+.note-header {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+
+.note-text {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: #444;
+}
+
+
+.note-actions {
+    display: flex;
+    gap: 10px;
+}
+
+
+.edit-note,
+.delete-note,
+.view-note {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    max-width: fit-content;
+    max-height: fit-content;
+}
+
+
+.edit-note {
+    background: #007bff;
+    color: #fff;
+}
+
+
+.edit-note:hover {
+    background: #005fcc;
+}
+
+.view-note {
+    background: rgb(87, 227, 87);
+    color: #fff;
+}
+
+.view-note:hover {
+    background: rgb(16, 232, 16);
+}
+
+
+.delete-note {
+    background: #e63946;
+    color: #fff;
+}
+
+
+.delete-note:hover {
+    background: #c72533;
+}
