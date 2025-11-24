@@ -64,7 +64,7 @@ CSS for styling
 
 📦 Installation & Setup
 1️⃣ Clone the repository
-git clone https://github.com/your-username/notes-app.git
+git clone https://github.com/princePandeyGitHub/notes-app.git
 
 2️⃣ Install dependencies
 npm install
@@ -75,7 +75,7 @@ npm run dev
 
 Open your browser and go to:
 
-http://notes-app-link.com
+https://notes-app-tawny-six.vercel.app/
 
 🖼 Screenshots
 
