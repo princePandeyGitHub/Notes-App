@@ -2,29 +2,36 @@ import './ViewNotePage.css';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useParams,useNavigate } from 'react-router';
+import axios from 'axios';
 
 export function EditNotePage({ notes, setNotes }) {
     const navigate = useNavigate();
     const { id } = useParams();
-    const note = notes.find(n => n.id === Number(id));
+    const note = notes.find(n => n._id === id);  // Use _id for MongoDB
 
-    const [noteTitle, setNoteTitle] = useState(note.title);
-    const [noteContent, setNoteContent] = useState(note.text);
+    const [noteTitle, setNoteTitle] = useState(note?.title || '');
+    const [noteContent, setNoteContent] = useState(note?.content || '');
 
-    const editNote = () => {
-        const editedNote = {
-            id: Number(id),
-            title: noteTitle,
-            text: noteContent,
-            createdAt: dayjs().toISOString()
-        };
+    const editNote = async () => {
+        try {
+            const editedNote = {
+                title: noteTitle,
+                content: noteContent,
+            };
 
-        const updatedNotes = notes.map(n =>
-            n.id === Number(id) ? editedNote : n
-        );
+            await axios.put(`/notes/${id}`, editedNote);
+            
+            // Update local state
+            const updatedNotes = notes.map(n =>
+                n._id === id ? { ...n, ...editedNote } : n
+            );
 
-        setNotes(updatedNotes);
-        navigate(`/view-notes/${id}`)
+            setNotes(updatedNotes);
+            navigate(`/view-notes/${id}`)
+        } catch (error) {
+            console.error('Error updating note:', error);
+            alert('Failed to update note. Please try again.');
+        }
     };
 
     return (

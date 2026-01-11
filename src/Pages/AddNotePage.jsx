@@ -2,25 +2,31 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import './ViewNotePage.css';
 import dayjs from 'dayjs';
-export function AddNotePage({notes,setNotes}) {
+import axios from 'axios';
+
+export function AddNotePage({ notes, setNotes }) {
     const navigate = useNavigate();
     const [noteTitle,setNoteTitle] = useState('')
     const [noteContent,setNoteContent] = useState('');
 
-    const saveNote = () => {
-        let id = 0;
-        if(notes.length > 0){
-            id = notes[(notes.length)-1].id + 1;
+    const saveNote = async () => {
+        try {
+            const newNote = {
+                title: noteTitle,
+                content: noteContent,
+            }
+            
+            const response = await axios.post('/notes', newNote);
+            console.log('Note created:', response.data);
+            setNotes([...notes,response.data.note])
+            
+            // Navigate to the newly created note
+            navigate(`/view-notes/${response.data.note._id}`)
+        } catch (error) {
+            console.error('Error saving note:', error);
+            alert('Failed to save note. Please try again.');
         }
-        const newNote = {
-            id: id,
-            title: noteTitle,
-            text: noteContent,
-            createdAt: dayjs().toISOString()
-        }
-        setNotes([...notes, newNote])
-        navigate(`/view-notes/${id}`)
-        }
+    }
     return (
         <div className="note-container">
             <input type="text" className='note-title' placeholder='Title of your Note' required
