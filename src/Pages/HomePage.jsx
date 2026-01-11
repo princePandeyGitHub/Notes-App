@@ -3,6 +3,12 @@ import { useNavigate } from 'react-router'
 export function HomePage({ notes, deleteNote }) {
     const navigate = useNavigate();
 
+    if(notes.length == 0){
+        return <>
+            Notes not found
+        </>
+    }
+
     return (
         <>
             <div className="notes-container">

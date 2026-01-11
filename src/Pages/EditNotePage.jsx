@@ -1,10 +1,10 @@
 import './ViewNotePage.css';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import { useParams,useNavigate } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import axios from 'axios';
 
-export function EditNotePage({ notes, setNotes }) {
+export function EditNotePage({ notes, setNotes, setPopup }) {
     const navigate = useNavigate();
     const { id } = useParams();
     const note = notes.find(n => n._id === id);  // Use _id for MongoDB
@@ -20,7 +20,7 @@ export function EditNotePage({ notes, setNotes }) {
             };
 
             await axios.put(`/notes/${id}`, editedNote);
-            
+
             // Update local state
             const updatedNotes = notes.map(n =>
                 n._id === id ? { ...n, ...editedNote } : n
@@ -28,9 +28,18 @@ export function EditNotePage({ notes, setNotes }) {
 
             setNotes(updatedNotes);
             navigate(`/view-notes/${id}`)
+
+            setPopup({
+                id: Date.now(),
+                message: "Note Updated Successfully",
+                status: "success"
+            })
         } catch (error) {
-            console.error('Error updating note:', error);
-            alert('Failed to update note. Please try again.');
+            setPopup({
+                id: Date.now(),
+                message: "Note Updation Failed",
+                status: "failure"
+            })
         }
     };
 

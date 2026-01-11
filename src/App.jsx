@@ -7,10 +7,12 @@ import { EditNotePage } from './Pages/EditNotePage.jsx'
 import { AddNotePage } from './Pages/AddNotePage.jsx'
 import { Route, Routes } from 'react-router'
 import axios from 'axios'
+import StatusPopup from './Components/StatusPopup.jsx'
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [notes, setNotes] = useState([]);
+  const [popup, setPopup] = useState({ id: 0, message: "", status: "" });
 
   // fetch the notes data from the backend
   useEffect(() => {
@@ -28,13 +30,23 @@ export default function App() {
   const deleteNote = async (id) => {
     try {
       const response = await axios.delete(`/notes/${id}`);
-      console.log(response.data);
 
       // updating local state
       const updatedNotes = notes.filter(note => note._id !== id);
       setNotes(updatedNotes);
+
+      setPopup({
+      id: Date.now(),
+      message: "Note Deleted Successfully",
+      status: "success"
+    });
+
     } catch (error) {
-      console.log(error)
+        setPopup({
+        id: Date.now(),
+        message: "Note Deletion Failed",
+        status: "failure"
+      });
     }
     
   };
@@ -55,11 +67,16 @@ export default function App() {
   return (
     <>
       <Navbar onSearch={handleSearch} />
+      <StatusPopup
+      message={popup.message}
+      status={popup.status}
+      key={popup.id}
+      />
       <Routes>
         <Route path='/' element={<HomePage notes={filteredNotes} deleteNote={deleteNote} />} />
         <Route path='view-notes/:id' element={<ViewNotePage notes={notes} deleteNote={deleteNote} />} />
-        <Route path='edit-notes/:id' element={<EditNotePage notes={notes} setNotes={setNotes} deleteNote={deleteNote} />} />
-        <Route path='add-notes' element={<AddNotePage notes={notes} setNotes={setNotes} />} />
+        <Route path='edit-notes/:id' element={<EditNotePage notes={notes} setNotes={setNotes} setPopup={setPopup} />} />
+        <Route path='add-notes' element={<AddNotePage notes={notes} setNotes={setNotes} setPopup={setPopup}/>} />
       </Routes>
 
     </>
