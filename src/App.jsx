@@ -43,13 +43,13 @@ export default function App() {
     setSearchQuery(query);
   };
 
-  const filteredNotes = notes;
-  // if(notes) {
-  //     filteredNotes = notes.filter(note =>
-  //     note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  //     note.text.toLowerCase().includes(searchQuery.toLowerCase())
-  //   );
-  // }
+  let filteredNotes = notes;
+  if(notes) {
+      filteredNotes = notes.filter(note =>
+      note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      note.content.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
 
 
   return (
