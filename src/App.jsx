@@ -18,7 +18,7 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('/notes');
+        const res = await axios.get('https://notes-app-backend-myak.onrender.com/notes');
         setNotes(res.data.notes)
       } catch (error) {
         console.log(error);
@@ -29,7 +29,7 @@ export default function App() {
 
   const deleteNote = async (id) => {
     try {
-      const response = await axios.delete(`/notes/${id}`);
+      const response = await axios.delete(`https://notes-app-backend-myak.onrender.com/notes/${id}`);
 
       // updating local state
       const updatedNotes = notes.filter(note => note._id !== id);

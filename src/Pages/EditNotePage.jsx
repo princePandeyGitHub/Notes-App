@@ -19,7 +19,7 @@ export function EditNotePage({ notes, setNotes, setPopup }) {
                 content: noteContent,
             };
 
-            await axios.put(`/notes/${id}`, editedNote);
+            await axios.put(`https://notes-app-backend-myak.onrender.com/notes/${id}`, editedNote);
 
             // Update local state
             const updatedNotes = notes.map(n =>

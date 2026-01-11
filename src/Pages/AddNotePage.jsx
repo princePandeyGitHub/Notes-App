@@ -16,7 +16,7 @@ export function AddNotePage({ notes, setNotes, setPopup }) {
                 content: noteContent,
             }
 
-            const response = await axios.post('/notes', newNote);
+            const response = await axios.post('https://notes-app-backend-myak.onrender.com/notes', newNote);
             console.log('Note created:', response.data);
             setNotes([...notes, response.data.note])
 
