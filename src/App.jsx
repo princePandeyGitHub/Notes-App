@@ -8,6 +8,8 @@ import { AddNotePage } from './Pages/AddNotePage.jsx'
 import { Route, Routes } from 'react-router'
 import axios from 'axios'
 import StatusPopup from './Components/StatusPopup.jsx'
+import { LoginPage } from './Pages/LoginPage.jsx'
+import { RegisterPage } from './Pages/RegisterPage.jsx'
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -77,8 +79,9 @@ export default function App() {
         <Route path='view-notes/:id' element={<ViewNotePage notes={notes} deleteNote={deleteNote} />} />
         <Route path='edit-notes/:id' element={<EditNotePage notes={notes} setNotes={setNotes} setPopup={setPopup} />} />
         <Route path='add-notes' element={<AddNotePage notes={notes} setNotes={setNotes} setPopup={setPopup}/>} />
+        <Route path='login' element={<LoginPage/>}/>
+        <Route path='register' element={<RegisterPage/>}/>
       </Routes>
-
     </>
   )
 }

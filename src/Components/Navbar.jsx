@@ -28,10 +28,17 @@ export function Navbar({ onSearch }) {
                         }
                     }} />
             </div>
-
+            
+            <div style={{display: 'flex', gap: '20px'}}>
             <Link to={'add-notes'}>
                 <button className="nav-btn">Add Notes</button>
             </Link>
+
+            <Link to={'login'}>
+                <button className="nav-btn" style={{background: '#04AA6D', color: 'white'}}>Login</button>
+            </Link>
+            </div>
+
         </nav>
     )
 }

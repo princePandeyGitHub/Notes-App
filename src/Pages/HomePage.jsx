@@ -4,9 +4,9 @@ export function HomePage({ notes, deleteNote }) {
     const navigate = useNavigate();
 
     if(notes.length == 0){
-        return <>
+        return <div style={{textAlign: 'center', fontWeight: 'bold', fontSize: '32px', margin: '10px'}}>
             Notes not found
-        </>
+        </div>
     }
 
     return (
