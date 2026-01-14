@@ -4,7 +4,7 @@ import './ViewNotePage.css';
 import dayjs from 'dayjs';
 import axios from 'axios';
 
-export function AddNotePage({ notes, setNotes, setPopup }) {
+export function AddNotePage({ notes, setNotes, setPopup, token }) {
     const navigate = useNavigate();
     const [noteTitle, setNoteTitle] = useState('')
     const [noteContent, setNoteContent] = useState('');
@@ -16,8 +16,15 @@ export function AddNotePage({ notes, setNotes, setPopup }) {
                 content: noteContent,
             }
 
-            const response = await axios.post('https://notes-app-backend-myak.onrender.com/notes', newNote);
-            console.log('Note created:', response.data);
+            const response = await axios.post(
+                'https://notes-app-backend-myak.onrender.com/notes',
+                newNote, // ✅ request body
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
             setNotes([...notes, response.data.note])
 
             // Navigate to the newly created note

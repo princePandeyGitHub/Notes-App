@@ -15,42 +15,52 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [notes, setNotes] = useState([]);
   const [popup, setPopup] = useState({ id: 0, message: "", status: "" });
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   // fetch the notes data from the backend
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('https://notes-app-backend-myak.onrender.com/notes');
+        const res = await axios.get('https://notes-app-backend-myak.onrender.com/notes', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },});
         setNotes(res.data.notes)
       } catch (error) {
         console.log(error);
       }
     }
-    fetchData();
-  }, []);
+    if (token) {
+      fetchData();
+    }
+  }, [token]);
 
   const deleteNote = async (id) => {
     try {
-      const response = await axios.delete(`https://notes-app-backend-myak.onrender.com/notes/${id}`);
+      const response = await axios.delete(`https://notes-app-backend-myak.onrender.com/notes/${id}`,{
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
 
       // updating local state
       const updatedNotes = notes.filter(note => note._id !== id);
       setNotes(updatedNotes);
 
       setPopup({
-      id: Date.now(),
-      message: "Note Deleted Successfully",
-      status: "success"
-    });
+        id: Date.now(),
+        message: "Note Deleted Successfully",
+        status: "success"
+      });
 
     } catch (error) {
-        setPopup({
+      setPopup({
         id: Date.now(),
         message: "Note Deletion Failed",
         status: "failure"
       });
     }
-    
+
   };
 
   const handleSearch = (query) => {
@@ -58,8 +68,8 @@ export default function App() {
   };
 
   let filteredNotes = notes;
-  if(notes) {
-      filteredNotes = notes.filter(note =>
+  if (notes) {
+    filteredNotes = notes.filter(note =>
       note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       note.content.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -68,19 +78,19 @@ export default function App() {
 
   return (
     <>
-      <Navbar onSearch={handleSearch} />
+      <Navbar onSearch={handleSearch} setToken={setToken} setNotes={setNotes}/>
       <StatusPopup
-      message={popup.message}
-      status={popup.status}
-      key={popup.id}
+        message={popup.message}
+        status={popup.status}
+        key={popup.id}
       />
       <Routes>
         <Route path='/' element={<HomePage notes={filteredNotes} deleteNote={deleteNote} />} />
         <Route path='view-notes/:id' element={<ViewNotePage notes={notes} deleteNote={deleteNote} />} />
-        <Route path='edit-notes/:id' element={<EditNotePage notes={notes} setNotes={setNotes} setPopup={setPopup} />} />
-        <Route path='add-notes' element={<AddNotePage notes={notes} setNotes={setNotes} setPopup={setPopup}/>} />
-        <Route path='login' element={<LoginPage/>}/>
-        <Route path='register' element={<RegisterPage/>}/>
+        <Route path='edit-notes/:id' element={<EditNotePage notes={notes} setNotes={setNotes} setPopup={setPopup} token={token}/>} />
+        <Route path='add-notes' element={<AddNotePage notes={notes} setNotes={setNotes} setPopup={setPopup} token={token}/>} />
+        <Route path='login' element={<LoginPage setPopup={setPopup} setToken={setToken}/>} />
+        <Route path='register' element={<RegisterPage setPopup={setPopup} />} />
       </Routes>
     </>
   )

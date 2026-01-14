@@ -2,9 +2,18 @@ import { useState } from 'react';
 import './Navbar.css'
 import { Link } from 'react-router'
 import { useNavigate } from 'react-router';
-export function Navbar({ onSearch }) {
+export function Navbar({ onSearch, setToken, setNotes }) {
     const navigate = useNavigate();
     const [query,setQuery] = useState('')
+    const isLoggedIn = !!localStorage.getItem("token");
+
+    const handleLogout = () => {
+        setToken(null);
+        setNotes([]);
+        localStorage.removeItem("token");
+        navigate("/login");
+    }; 
+
     return (
         <nav className="navbar">
             <Link to={'/'} style={{
@@ -30,13 +39,16 @@ export function Navbar({ onSearch }) {
             </div>
             
             <div style={{display: 'flex', gap: '20px'}}>
-            <Link to={'add-notes'}>
+            {isLoggedIn && <Link to={'add-notes'}>
                 <button className="nav-btn">Add Notes</button>
-            </Link>
+            </Link>}
 
-            <Link to={'login'}>
+            {!isLoggedIn ? (<Link to={'login'}>
                 <button className="nav-btn" style={{background: '#04AA6D', color: 'white'}}>Login</button>
-            </Link>
+            </Link>)
+             : (
+                <button className="nav-btn" onClick={handleLogout} style={{background: '#04AA6D', color: 'white'}}>Logout</button>
+            )}
             </div>
 
         </nav>

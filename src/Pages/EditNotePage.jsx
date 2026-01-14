@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import axios from 'axios';
 
-export function EditNotePage({ notes, setNotes, setPopup }) {
+export function EditNotePage({ notes, setNotes, setPopup, token }) {
     const navigate = useNavigate();
     const { id } = useParams();
     const note = notes.find(n => n._id === id);  // Use _id for MongoDB
@@ -19,7 +19,11 @@ export function EditNotePage({ notes, setNotes, setPopup }) {
                 content: noteContent,
             };
 
-            await axios.put(`https://notes-app-backend-myak.onrender.com/notes/${id}`, editedNote);
+            await axios.put(`https://notes-app-backend-myak.onrender.com/notes/${id}`, editedNote, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
 
             // Update local state
             const updatedNotes = notes.map(n =>
